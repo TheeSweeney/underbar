@@ -96,7 +96,7 @@
   _.reject = function(collection, test) {
     // TIP: see if you can re-use _.filter() here, without simply
     // copying code in and modifying it
-    var arr =[]
+    var arr =[];
     for(var i=0;i<collection.length; i++){
       if(!test(collection[i])){
         arr.push(collection[i])
@@ -104,9 +104,17 @@
     }
     return arr;
   };
-
+  //
   // Produce a duplicate-free version of the array.
-  _.uniq = function(array) {
+  _.uniq = function(array){
+    var arr =[];
+    for(var i=0; i<array.length; i++){
+      if (_.indexOf(arr, array[i]) === -1){
+        //not sure why arr.indexOf(array[i]) didn't work
+        arr.push(array[i]);
+      }
+    }
+    return arr;
   };
 
 
