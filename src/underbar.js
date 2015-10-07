@@ -202,16 +202,16 @@
       expect(_.every([1], _.identity)).to.be.true;
       expect(_.every([0], _.identity)).to.be.false;
       expect(_.every([true, {}, 1], _.identity)).to.be.true;
-
+*/
     var iterator = iterator || _.identity;
     return _.reduce(collection, function(all, next){
       if(!all){
         return false;
       }else{
-        return iterator(next);
+        return Boolean(iterator(next));
       }
-    }, true)*/
-    var iterator = iterator || _.identity
+    }, true)
+    /*var iterator = iterator || _.identity
     var out = true;
     if(Array.isArray(collection)){
       for (var i = 0; i<collection.length; i++ ){
@@ -219,7 +219,7 @@
           out = false
       }
     }
-    return out;
+    return out;*/
   };
 
   // Determine whether any of the elements pass a truth test. If no iterator is
