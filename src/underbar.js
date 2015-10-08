@@ -263,8 +263,8 @@
   //   }, {
   //     bla: "even more stuff"
   //   }); // obj1 now contains key1, key2, key3 and bla
-  _.extend = function(obj, input) {
-      if(arguments.length>2){
+  _.extend = function(obj) {
+/*      if(arguments.length>2){
         for(var i =1; i<arguments.length; i++){
           for(var key in arguments[i]){
             obj[key]= arguments[i][key]
@@ -274,7 +274,13 @@
       for(var key in input){
         obj[key] = input[key]
       }
-      return obj;
+      return obj;*/
+      _.each(arguments, function(objs){
+        _.each(objs, function(item, key){
+          obj[key]=item;
+        });
+      });
+      return obj
   };
 
   // Like extend, but doesn't ever overwrite a key that already
@@ -291,7 +297,13 @@
         obj[key] = input[key]
       }
       return obj;*/
-
+      _.each(arguments, function(objs){
+        _.each(objs, function(item, key){
+          if(obj[key] == undefined){
+            obj[key]=item;}
+        });
+      });
+      return obj
   };
 
 
@@ -326,7 +338,7 @@
     };
   };
 
-  // Memorize an expensive function's results by storing them. You may assume
+  // Memoize an expensive function's results by storing them. You may assume
   // that the function only takes primitives as arguments.
   // memoize could be renamed to oncePerUniqueArgumentList; memoize does the
   // same thing as once, but based on many sets of unique arguments.
@@ -335,6 +347,14 @@
   // already computed the result for the given argument and return that value
   // instead if possible.
   _.memoize = function(func) {
+    var out = {};
+
+    return function f(args){
+      if(!out[args]){
+        out[args] = func.apply(this, arguments) 
+      }
+      return out[args];
+    }
   };
 
   // Delays a function for the given number of milliseconds, and then calls
@@ -344,6 +364,7 @@
   // parameter. For example _.delay(someFunction, 500, 'a', 'b') will
   // call someFunction('a', 'b') after 500ms
   _.delay = function(func, wait) {
+    return setTimeout.apply(null, arguments);
   };
 
 
